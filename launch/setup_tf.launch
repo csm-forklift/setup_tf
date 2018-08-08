@@ -15,9 +15,21 @@
         period_in_ms: time between transform publishes (100ms = 10Hz)
     -->
 
+    <!-- Forklift Dimensions -->
+    <!--
+        Potential dimensions of interest:
+            base width
+            base height (for finding base_footprint)
+            distance between front/rear axels
+            (bounding box around forklift)
+            forklift width
+            forklift length
+            forklift height
+    -->
+    <param name="base_width" value="0.360" />
+
     <!-- odom (world), fixed point on the map where we choose to start our odom
          frame, this does not have to be (0,0) -->
-
     <rosparam file="$(find setup_tf)/include/world_to_odom.yaml" command="load" />
     <?comment
         ROS does not allow directly accessing parameters and using their values
@@ -95,8 +107,6 @@
 
     <!-- This node subscribes to all relevant odometry data and generates the
          dynamic transforms -->
-    <!--
-    Start setup_tf_node
-    -->
+    <node pkg="setup_tf" name="setup_tf_node" type="setup_tf_node" respawn="true" />
 
 </launch>
