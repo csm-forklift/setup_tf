@@ -74,18 +74,18 @@
     <node pkg = "tf"
         type = "static_transform_publisher"
         name = "wheel_right_broadcaster"
-        args = "0 0 0 0 0 0 1 front_axel_middle_link wheel_right_link 100" />
+        args = "0 -0.185 0 0 0 0 1 front_axel_middle_link wheel_right_link 100" />
 
     <node pkg = "tf"
         type = "static_transform_publisher"
         name = "wheel_left_broadcaster"
-        args = "0 0 0 0 0 0 1 front_axel_middle_link wheel_left_link 100" />
+        args = "0 0.185 0 0 0 0 1 front_axel_middle_link wheel_left_link 100" />
 
     <!-- IMU (base_link) -->
     <node pkg = "tf"
         type = "static_transform_publisher"
         name = "imu_broadcaster"
-        args = "0 0 0 0 0 0 1 base_link imu_link 100" />
+        args = "-0.215 -0.030 0.553 0 0 -0.7071068 0.7071068 base_link imu_link 100" />
 
     <!-- ArUco markers (world) -->
     <node pkg = "tf"
@@ -95,8 +95,6 @@
 
     <!-- This node subscribes to all relevant odometry data and generates the
          dynamic transforms -->
-    <!--
-    Start setup_tf_node
-    -->
+    <!-- <node pkg="setup_tf" name="setup_tf_node" type="setup_tf_node" respawn="true" /> -->
 
 </launch>
