@@ -1,5 +1,11 @@
+<!-- Launch file which handles the transforms for the system -->
 <launch>
     <!-- Setup static transforms for the world and robot -->
+    <arg name="debug" default="false" />
+
+    <!-- robot physical parameters (SI units) -->
+    <arg name="base_width" default="0.400" />
+
     <!--
         The values for each static transform are loaded as parameters from yaml
         files. This makes the values more human readable and easier to change
@@ -26,11 +32,11 @@
             forklift length
             forklift height
     -->
-    <param name="base_width" value="0.360" />
+    <param name="base_width" value="$(arg base_width)" />
 
     <!-- odom (world), fixed point on the map where we choose to start our odom
          frame, this does not have to be (0,0) -->
-    <rosparam file="$(find setup_tf)/include/world_to_odom.yaml" command="load" />
+    <rosparam file="$(find setup_tf)/config/world_to_odom.yaml" command="load" />
     <?comment
         ROS does not allow directly accessing parameters and using their values
         as arguments in another command. There is a work around that will allow
@@ -70,7 +76,7 @@
     <node pkg = "tf"
         type = "static_transform_publisher"
         name = "camera_broadcaster"
-        args = "0 0 0 0 0 0 1 base_link camera_link 100" />
+        args = "0.200 0.045 0.200 0 0 0 1 base_link camera_link 100" />
 
     <!-- wheel position (base_link) -->
     <!--
@@ -86,27 +92,31 @@
     <node pkg = "tf"
         type = "static_transform_publisher"
         name = "wheel_right_broadcaster"
-        args = "0 -0.185 0 0 0 0 1 front_axel_middle_link wheel_right_link 100" />
+        args = "0 -0.200 0 0 0 0 1 front_axel_middle_link wheel_right_link 100" />
 
     <node pkg = "tf"
         type = "static_transform_publisher"
         name = "wheel_left_broadcaster"
-        args = "0 0.185 0 0 0 0 1 front_axel_middle_link wheel_left_link 100" />
+        args = "0 0.200 0 0 0 0 1 front_axel_middle_link wheel_left_link 100" />
 
     <!-- IMU (base_link) -->
     <node pkg = "tf"
         type = "static_transform_publisher"
         name = "imu_broadcaster"
-        args = "-0.215 -0.030 0.553 0 0 -0.7071068 0.7071068 base_link imu_link 100" />
+        args = "-0.100 0 0.20 0 0 -0.7071068 0.7071068 base_link imu_link 100" />
 
     <!-- ArUco markers (world) -->
     <node pkg = "tf"
         type = "static_transform_publisher"
         name = "marker1_broadcaster"
-        args = "0 0 0 0 0 0 1 world marker1 100" />
+        args = "2.438 0  -0.127 0 0 -0.7071068 0.7071068 world marker1 100" />
 
     <!-- This node subscribes to all relevant odometry data and generates the
          dynamic transforms -->
-    <node pkg="setup_tf" name="setup_tf_node" type="setup_tf_node" respawn="true" />
-
+    <group if="$(arg debug)">
+        <node pkg="setup_tf" name="setup_tf_node" type="setup_tf_node" respawn="true" output="screen" />
+    </group>
+    <group unless="$(arg debug)">
+        <node pkg="setup_tf" name="setup_tf_node" type="setup_tf_node" respawn="true" />
+    </group>
 </launch>
