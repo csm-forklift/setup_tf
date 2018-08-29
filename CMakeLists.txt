@@ -139,6 +139,7 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/setup_tf_node.cpp)
 add_executable(setup_tf_node src/setup_tf_node.cpp)
+add_executable(setup_tf_static_transforms src/setup_tf_static_transforms.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -150,12 +151,14 @@ add_executable(setup_tf_node src/setup_tf_node.cpp)
 ## same as for the library above
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(setup_tf_node setup_tf_generate_messages.cpp)
+add_dependencies(setup_tf_static_transforms setup_tf_generate_messages.cpp)
 
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
 target_link_libraries(setup_tf_node ${catkin_LIBRARIES})
+target_link_libraries(setup_tf_static_transforms ${catkin_LIBRARIES})
 
 #############
 ## Install ##

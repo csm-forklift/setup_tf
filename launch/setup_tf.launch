@@ -34,89 +34,28 @@
     -->
     <param name="base_width" value="$(arg base_width)" />
 
-    <!-- odom (world), fixed point on the map where we choose to start our odom
-         frame, this does not have to be (0,0) -->
-    <rosparam file="$(find setup_tf)/config/world_to_odom.yaml" command="load" />
-    <?comment
-        ROS does not allow directly accessing parameters and using their values
-        as arguments in another command. There is a work around that will allow
-        you to load parameters from a .yaml file and then use them as arguments
-        for a node or other tag. You must use the 'launch-prefix' attribute with
-        the following value:
-
-        launch-prefix = "/bin/bash -c '$* `rosparam get [param1_name]; rosparam
-        get [param2_name]; rosparam get ...`' --"
-
-        Note that the whole argument is in double quotes, the section starting
-        at the dollar sign until the space before the two dashes is in single
-        quotes, the rosparam commands are within back quotes.
-    ?>
-    <node pkg = "tf"
-        type = "static_transform_publisher"
-        name = "odom_broadcaster"
-        launch-prefix = "/bin/bash -c '$* `rosparam get odom_transform/x;
-            rosparam get odom_transform/y; rosparam get odom_transform/z;
-            rosparam get odom_transform/qx; rosparam get odom_transform/qy;
-            rosparam get odom_transform/qz; rosparam get odom_transform/qw;
-            rosparam get odom_transform/frame_id; rosparam get odom_transform/child_frame_id;
-            rosparam get odom_transform/period_in_ms`' --" />
-
-    <!-- laser scanners (base_link) -->
-    <node pkg = "tf"
-        type = "static_transform_publisher"
-        name = "laser_scanner1_broadcaster"
-        args = "0 0 0 0 0 0 1 base_link laser_scanner1 100" />
-
-    <!-- camera (base_link) -->
-    <!--
-    camera_link
-    camera_rgb_frame
-    camera_rgb_optical_frame
-    -->
-    <node pkg = "tf"
-        type = "static_transform_publisher"
-        name = "camera_broadcaster"
-        args = "0.200 0.045 0.200 0 0 0 1 base_link camera_link 100" />
-
-    <!-- wheel position (base_link) -->
-    <!--
-    front_axel_middle_link
-    wheel_right_link
-    wheel_left_link
-    -->
-    <node pkg = "tf"
-        type = "static_transform_publisher"
-        name = "front_axel_middle_broadcaster"
-        args = "0 0 0 0 0 0 1 base_link front_axel_middle_link 100" />
-
-    <node pkg = "tf"
-        type = "static_transform_publisher"
-        name = "wheel_right_broadcaster"
-        args = "0 -0.200 0 0 0 0 1 front_axel_middle_link wheel_right_link 100" />
-
-    <node pkg = "tf"
-        type = "static_transform_publisher"
-        name = "wheel_left_broadcaster"
-        args = "0 0.200 0 0 0 0 1 front_axel_middle_link wheel_left_link 100" />
-
-    <!-- IMU (base_link) -->
-    <node pkg = "tf"
-        type = "static_transform_publisher"
-        name = "imu_broadcaster"
-        args = "-0.100 0 0.20 0 0 -0.7071068 0.7071068 base_link imu_link 100" />
-
-    <!-- ArUco markers (world) -->
-    <node pkg = "tf"
-        type = "static_transform_publisher"
-        name = "marker1_broadcaster"
-        args = "2.438 0  -0.127 0 0 -0.7071068 0.7071068 world marker1 100" />
+    <rosparam file="$(find setup_tf)/config/forklift.yaml" command="load" />
 
     <!-- This node subscribes to all relevant odometry data and generates the
          dynamic transforms -->
     <group if="$(arg debug)">
         <node pkg="setup_tf" name="setup_tf_node" type="setup_tf_node" respawn="true" output="screen" />
+        <node pkg="setup_tf" name="setup_tf_static_transforms" type="setup_tf_static_transforms" respawn="true" output="screen">
+            <rosparam file="$(find setup_tf)/config/forklift.yaml" command="load" />
+            <rosparam file="$(find setup_tf)/config/world.yaml" command="load" />
+            <rosparam file="$(find setup_tf)/config/laser_scanners.yaml" command="load" />
+            <rosparam file="$(find setup_tf)/config/imu.yaml" command="load" />
+            <rosparam file="$(find setup_tf)/config/cameras.yaml" command="load" />
+        </node>
     </group>
     <group unless="$(arg debug)">
         <node pkg="setup_tf" name="setup_tf_node" type="setup_tf_node" respawn="true" />
+        <node pkg="setup_tf" name="setup_tf_static_transforms" type="setup_tf_static_transforms" respawn="true">
+            <rosparam file="$(find setup_tf)/config/forklift.yaml" command="load" />
+            <rosparam file="$(find setup_tf)/config/world.yaml" command="load" />
+            <rosparam file="$(find setup_tf)/config/laser_scanners.yaml" command="load" />
+            <rosparam file="$(find setup_tf)/config/imu.yaml" command="load" />
+            <rosparam file="$(find setup_tf)/config/cameras.yaml" command="load" />
+        </node>
     </group>
 </launch>

@@ -15,7 +15,7 @@ private:
     tf::TransformBroadcaster base_link_broadcaster;
     tf::TransformBroadcaster enc_base_link_broadcaster;
     tf::TransformBroadcaster imu_base_link_broadcaster;
-    struct Position {double x, y, z;}; // used at IMU position in transform since IMU only gives orientation
+    struct Position {double x, y, z;}; // used as IMU position in transform since IMU only gives orientation
     Position imu_base_link_position;
     tf::TransformBroadcaster camera_base_link_broadcaster;
 public:

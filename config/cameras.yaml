@@ -1,0 +1,14 @@
+# Transforms for the cameras from the robot's base_link frame
+
+camera1:
+    pose:
+        x: 0.200
+        y: 0.045
+        z: 0.200
+        qx: 0.0
+        qy: 0.0
+        qz: 0.0
+        qw: 1.0
+    frames:
+        frame_id: "base_link"
+        child_frame_id: "camera1_link"
