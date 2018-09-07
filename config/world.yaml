@@ -25,3 +25,5 @@ marker1:
     frames:
         frame_id: "world"
         child_frame_id: "marker1"
+    aruco_id: 3
+    size: 0.200

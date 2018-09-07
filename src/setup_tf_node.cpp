@@ -8,16 +8,39 @@ class Setup_tf
 {
 private:
     ros::NodeHandle nh;
+
+    // This struct is used for storing position for transforms which maintain a
+    // constant relative position to their parent frame
+    struct Position {double x, y, z;};
+
+    //===== Odom Filtered =====//
     ros::Subscriber odom_filtered_sub;
-    ros::Subscriber enc_pose_sub;
-    ros::Subscriber imu_sub;
-    ros::Subscriber camera_pose_sub;
     tf::TransformBroadcaster base_link_broadcaster;
+
+    //===== base_link from Encoders =====//
+    ros::Subscriber enc_pose_sub;
     tf::TransformBroadcaster enc_base_link_broadcaster;
+
+    //===== base_link orientation from IMU =====//
+    ros::Subscriber imu_sub;
     tf::TransformBroadcaster imu_base_link_broadcaster;
-    struct Position {double x, y, z;}; // used as IMU position in transform since IMU only gives orientation
-    Position imu_base_link_position;
+    // used as IMU position in transform since IMU only gives orientation
+    Position imu_base_link_position; // position is assigned from odom/filtered pose
+
+    //===== Cameras =====//
+    ros::Subscriber camera_pose_sub;
     tf::TransformBroadcaster camera_base_link_broadcaster;
+
+    //===== front_wheels =====//
+    ros::Subscriber front_wheel_left_sub;
+    ros::Subscriber front_wheel_right_sub;
+    tf::TransformBroadcaster front_wheel_left_broadcaster;
+    tf::TransformBroadcaster front_wheel_right_broadcaster;
+    Position front_wheel_left_position;
+    Position front_wheel_right_position;
+    double front_axel_width;
+
+
 public:
     Setup_tf()
     {
@@ -25,9 +48,23 @@ public:
         enc_pose_sub = nh.subscribe<nav_msgs::Odometry>("enc/odom", 10, &Setup_tf::enc_poseCallback, this);
         imu_sub = nh.subscribe<sensor_msgs::Imu>("imu/data", 10, &Setup_tf::imuCallback, this);
         camera_pose_sub = nh.subscribe<geometry_msgs::PoseWithCovarianceStamped>("camera_pose/pose", 10, &Setup_tf::camera_poseCallback, this);
+        front_wheel_left_sub = nh.subscribe<geometry_msgs::Quaternion>("enc/front_wheel_left_quat", 10, &Setup_tf::front_wheel_leftCallback, this);
+        front_wheel_right_sub = nh.subscribe<geometry_msgs::Quaternion>("enc/front_wheel_right_quat", 10, &Setup_tf::front_wheel_rightCallback, this);
+
+        // Initialize IMU position
         imu_base_link_position.x = 0;
         imu_base_link_position.y = 0;
         imu_base_link_position.z = 0;
+
+        // Set wheel positions relative to 'front_axel_middle
+        if (!nh.getParam("/forklift/front_axel_width", front_axel_width)) {
+            ROS_INFO("Could not load param \'forklift/front_axel_width\'. Using default: 0.5m");
+            front_axel_width = 0.5;
+        }
+        front_wheel_left_position.x, front_wheel_right_position.z = 0;
+        front_wheel_left_position.z, front_wheel_right_position.z = 0;
+        front_wheel_left_position.y = front_axel_width/2;
+        front_wheel_right_position.y = -front_axel_width/2;
     }
 
     void odom_filteredCallback(const nav_msgs::Odometry::ConstPtr &msg)
@@ -87,10 +124,33 @@ public:
                           tf::Vector3(msg->pose.pose.position.x, msg->pose.pose.position.y, msg->pose.pose.position.z)),
             ros::Time::now(),
             "odom",
-            "camera/base_link"
+            msg->header.frame_id
+        ));
+    }
+
+    void front_wheel_leftCallback(const geometry_msgs::Quaternion::ConstPtr &msg)
+    {
+        front_wheel_left_broadcaster.sendTransform(tf::StampedTransform(
+            tf::Transform(tf::Quaternion(msg->x, msg->y, msg->z, msg->w),
+                          tf::Vector3(front_wheel_left_position.x, front_wheel_left_position.y, front_wheel_left_position.z)),
+            ros::Time::now(),
+            "front_axel_middle_link",
+            "front_wheel_left_link"
+        ));
+    }
+
+    void front_wheel_rightCallback(const geometry_msgs::Quaternion::ConstPtr &msg)
+    {
+        front_wheel_right_broadcaster.sendTransform(tf::StampedTransform(
+            tf::Transform(tf::Quaternion(msg->x, msg->y, msg->z, msg->w),
+                          tf::Vector3(front_wheel_right_position.x, front_wheel_right_position.y, front_wheel_right_position.z)),
+            ros::Time::now(),
+            "front_axel_middle_link",
+            "front_wheel_right_link"
         ));
     }
 };
+
 
 int main(int argc, char** argv)
 {

@@ -164,17 +164,6 @@ public:
         front_axel_middle_transform.push_back("forklift.yaml");
         frame_catalog.push_back(front_axel_middle_transform);
 
-        // FIXME: The wheel transforms should actually be dynamic transforms with
-        // orientation provided by encoder node
-        //===== Wheel right (base_link) =====//
-        wheel_right_transform.push_back("wheel_right");
-        wheel_right_transform.push_back("forklift.yaml");
-        frame_catalog.push_back(wheel_right_transform);
-        //===== Wheel left (base_link) =====//
-        wheel_left_transform.push_back("wheel_left");
-        wheel_left_transform.push_back("forklift.yaml");
-        frame_catalog.push_back(wheel_left_transform);
-
         //====================================================================//
         // Sensor Frames
         //====================================================================//
