@@ -1,3 +1,8 @@
+/*
+ * This node subscribes to the relevant odometry data and publishes the
+ * associated dynamic tranforms.
+ */
+
 #include <ros/ros.h>
 #include <tf/transform_broadcaster.h>
 #include <nav_msgs/Odometry.h>
