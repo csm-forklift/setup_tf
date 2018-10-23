@@ -1,0 +1,57 @@
+<!-- Launch file which handles the transforms for the system -->
+<launch>
+    <!-- Setup static transforms for the world and robot -->
+    <arg name="debug" default="false" />
+
+    <!-- robot physical parameters (SI units) -->
+    <arg name="base_width" default="0.340" />
+
+    <!--
+        The values for each static transform are loaded as parameters from yaml
+        files. This makes the values more human readable and easier to change
+        for individual sensors without needing to alter this launch file.
+
+        The arguments for each 'tf' node are as follows.
+        args = "x y z qx qy qz qw frame_id child_frame_id  period_in_ms"
+        x,y,z: translation to origin of child_frame_id in meters
+        qx,qy,qz,qw: rotation of frame_id to get to child_frame_id as a
+            quaternion
+        frame_id: name of original frame
+        child_frame_id: name of frame you are transforming to
+        period_in_ms: time between transform publishes (100ms = 10Hz)
+    -->
+
+    <!-- Forklift Dimensions -->
+    <!--
+        Potential dimensions of interest:
+            base width
+            base height (for finding base_footprint)
+            distance between front/rear axels
+            (bounding box around forklift)
+            forklift width
+            forklift length
+            forklift height
+    -->
+    <param name="base_width" value="$(arg base_width)" />
+
+    <rosparam file="$(find setup_tf)/config_marker_test/forklift.yaml" command="load" />
+
+    <!-- This node subscribes to all relevant odometry data and generates the
+         dynamic transforms -->
+    <group if="$(arg debug)">
+        <node pkg="setup_tf" name="setup_tf_marker_test" type="setup_tf_marker_test" respawn="true" output="screen" />
+        <node pkg="setup_tf" name="setup_tf_static_marker_test" type="setup_tf_static_marker_test" respawn="true" output="screen">
+            <rosparam file="$(find setup_tf)/config_marker_test/forklift.yaml" command="load" />
+            <rosparam file="$(find setup_tf)/config_marker_test/world.yaml" command="load" />
+            <rosparam file="$(find setup_tf)/config_marker_test/cameras.yaml" command="load" />
+        </node>
+    </group>
+    <group unless="$(arg debug)">
+        <node pkg="setup_tf" name="setup_tf_marker_test" type="setup_tf_marker_test" respawn="true" />
+        <node pkg="setup_tf" name="setup_tf_static_marker_test" type="setup_tf_static_marker_test" respawn="true">
+            <rosparam file="$(find setup_tf)/config_marker_test/forklift.yaml" command="load" />
+            <rosparam file="$(find setup_tf)/config_marker_test/world.yaml" command="load" />
+            <rosparam file="$(find setup_tf)/config_marker_test/cameras.yaml" command="load" />
+        </node>
+    </group>
+</launch>

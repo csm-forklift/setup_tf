@@ -140,6 +140,8 @@ include_directories(
 # add_executable(${PROJECT_NAME}_node src/setup_tf_node.cpp)
 add_executable(setup_tf_node src/setup_tf_node.cpp)
 add_executable(setup_tf_static_transforms src/setup_tf_static_transforms.cpp)
+add_executable(setup_tf_marker_test src/setup_tf_marker_test.cpp)
+add_executable(setup_tf_static_marker_test src/setup_tf_static_marker_test.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -152,6 +154,8 @@ add_executable(setup_tf_static_transforms src/setup_tf_static_transforms.cpp)
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(setup_tf_node setup_tf_generate_messages.cpp)
 add_dependencies(setup_tf_static_transforms setup_tf_generate_messages.cpp)
+add_dependencies(setup_tf_marker_test setup_tf_generate_messages.cpp)
+add_dependencies(setup_tf_static_marker_test setup_tf_generate_messages.cpp)
 
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(${PROJECT_NAME}_node
@@ -159,6 +163,8 @@ add_dependencies(setup_tf_static_transforms setup_tf_generate_messages.cpp)
 # )
 target_link_libraries(setup_tf_node ${catkin_LIBRARIES})
 target_link_libraries(setup_tf_static_transforms ${catkin_LIBRARIES})
+target_link_libraries(setup_tf_marker_test ${catkin_LIBRARIES})
+target_link_libraries(setup_tf_static_marker_test ${catkin_LIBRARIES})
 
 #############
 ## Install ##
