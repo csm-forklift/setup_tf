@@ -35,6 +35,7 @@
     <param name="base_width" value="$(arg base_width)" />
 
     <rosparam file="$(find setup_tf)/config_marker_test/forklift.yaml" command="load" />
+    <rosparam file="$(find setup_tf)/config_marker_test/world.yaml" command="load" />
 
     <!-- This node subscribes to all relevant odometry data and generates the
          dynamic transforms -->
