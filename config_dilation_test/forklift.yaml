@@ -1,0 +1,12 @@
+# This file hold all the configuration parameters specifically
+# relating to the forklift and its dimensions/specifications
+# All units should be in SI unless otherwise specified
+
+# General Dimensions
+forklift:
+    base_width: 0.340
+    front_axel_width: 0.340
+    front_wheel_diameter: 0.254
+    ground_clearance: 0.010
+    encoder:
+        segments: 40

@@ -142,6 +142,8 @@ add_executable(setup_tf_node src/setup_tf_node.cpp)
 add_executable(setup_tf_static_transforms src/setup_tf_static_transforms.cpp)
 add_executable(setup_tf_marker_test src/setup_tf_marker_test.cpp)
 add_executable(setup_tf_static_marker_test src/setup_tf_static_marker_test.cpp)
+add_executable(setup_tf_dilation_test src/setup_tf_dilation_test.cpp)
+add_executable(setup_tf_static_dilation_test src/setup_tf_static_dilation_test.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -162,6 +164,8 @@ target_link_libraries(setup_tf_node ${catkin_LIBRARIES})
 target_link_libraries(setup_tf_static_transforms ${catkin_LIBRARIES})
 target_link_libraries(setup_tf_marker_test ${catkin_LIBRARIES})
 target_link_libraries(setup_tf_static_marker_test ${catkin_LIBRARIES})
+target_link_libraries(setup_tf_dilation_test ${catkin_LIBRARIES})
+target_link_libraries(setup_tf_static_dilation_test ${catkin_LIBRARIES})
 
 #############
 ## Install ##
