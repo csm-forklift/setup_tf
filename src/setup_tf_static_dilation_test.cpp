@@ -151,15 +151,15 @@ public:
         odom_transform.push_back("world.yaml");
         frame_catalog.push_back(odom_transform);
         //===== World to Markers =====//
-        marker1_transform.push_back("marker1");
-        marker1_transform.push_back("world.yaml");
-        frame_catalog.push_back(marker1_transform);
-        marker2_transform.push_back("marker2");
-        marker2_transform.push_back("world.yaml");
-        frame_catalog.push_back(marker2_transform);
-        marker3_transform.push_back("marker3");
-        marker3_transform.push_back("world.yaml");
-        frame_catalog.push_back(marker3_transform);
+        //marker1_transform.push_back("marker1");
+        //marker1_transform.push_back("world.yaml");
+        //frame_catalog.push_back(marker1_transform);
+        //marker2_transform.push_back("marker2");
+        //marker2_transform.push_back("world.yaml");
+        //frame_catalog.push_back(marker2_transform);
+        //marker3_transform.push_back("marker3");
+        //marker3_transform.push_back("world.yaml");
+        //frame_catalog.push_back(marker3_transform);
 
         //====================================================================//
         // Forklift Frames
@@ -169,9 +169,9 @@ public:
         // Sensor Frames
         //====================================================================//
         //===== Cameras (base_link) =====//
-        camera1_transform.push_back("camera1");
-        camera1_transform.push_back("cameras.yaml");
-        frame_catalog.push_back(camera1_transform);
+        //camera1_transform.push_back("camera1");
+        //camera1_transform.push_back("cameras.yaml");
+        //frame_catalog.push_back(camera1_transform);
         lidar1_transform.push_back("lidar1");
         lidar1_transform.push_back("lidars.yaml");
         frame_catalog.push_back(lidar1_transform);
