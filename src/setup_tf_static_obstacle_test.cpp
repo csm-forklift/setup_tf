@@ -108,13 +108,12 @@ private:
 
     // List transforms needing to be published
     std::vector<std::string> odom_transform;
-    std::vector<std::string> front_axle_middle_transform;
-    std::vector<std::string> wheel_left_transform;
-    std::vector<std::string> wheel_right_transform;
-    std::vector<std::string> laser_scanner1_transform;
-    std::vector<std::string> imu_transform;
+    std::vector<std::string> front_axel_middle_transform;
     std::vector<std::string> camera1_transform;
     std::vector<std::string> marker1_transform;
+    std::vector<std::string> marker2_transform;
+    std::vector<std::string> marker3_transform;
+    std::vector<std::string> lidar1_transform;
 
     //========================================================================//
     //******************** OPERATOR TRANSFORM DEFINITIONS (1) ****************//
@@ -151,34 +150,31 @@ public:
         odom_transform.push_back("odom");
         odom_transform.push_back("world.yaml");
         frame_catalog.push_back(odom_transform);
-        //===== World to Marker1 =====//
-        marker1_transform.push_back("marker1");
-        marker1_transform.push_back("world.yaml");
-        frame_catalog.push_back(marker1_transform);
+        //===== World to Markers =====//
+        //marker1_transform.push_back("marker1");
+        //marker1_transform.push_back("world.yaml");
+        //frame_catalog.push_back(marker1_transform);
+        //marker2_transform.push_back("marker2");
+        //marker2_transform.push_back("world.yaml");
+        //frame_catalog.push_back(marker2_transform);
+        //marker3_transform.push_back("marker3");
+        //marker3_transform.push_back("world.yaml");
+        //frame_catalog.push_back(marker3_transform);
 
         //====================================================================//
         // Forklift Frames
         //====================================================================//
-        //===== Front axle middle (base_link) =====//
-        front_axle_middle_transform.push_back("front_axle_middle");
-        front_axle_middle_transform.push_back("forklift.yaml");
-        frame_catalog.push_back(front_axle_middle_transform);
 
         //====================================================================//
         // Sensor Frames
         //====================================================================//
-        //===== IMU (base_link) =====//
-        imu_transform.push_back("imu");
-        imu_transform.push_back("imu.yaml");
-        frame_catalog.push_back(imu_transform);
-        //===== Laser Scanners (base_link) =====//
-        laser_scanner1_transform.push_back("laser_scanner1");
-        laser_scanner1_transform.push_back("laser_scanners.yaml");
-        frame_catalog.push_back(laser_scanner1_transform);
         //===== Cameras (base_link) =====//
-        camera1_transform.push_back("camera1");
-        camera1_transform.push_back("cameras.yaml");
-        frame_catalog.push_back(camera1_transform);
+        //camera1_transform.push_back("camera1");
+        //camera1_transform.push_back("cameras.yaml");
+        //frame_catalog.push_back(camera1_transform);
+        lidar1_transform.push_back("lidar1");
+        lidar1_transform.push_back("lidars.yaml");
+        frame_catalog.push_back(lidar1_transform);
 
         //====================================================================//
         //****************** OPERATOR TRANSFORM DEFINITIONS (2) **************//

@@ -5,13 +5,13 @@
 # General Dimensions
 forklift:
     base_width: 0.400
-    front_axel_width: 0.400
+    front_axle_width: 0.400
     front_wheel_diameter: 0.254
     encoder:
         segments: 40
     
 # Frame transform parameters
-front_axel_middle:
+front_axle_middle:
     pose:
         x: 0.0
         y: 0.0
@@ -22,4 +22,4 @@ front_axel_middle:
         qw: 1.0
     frames:
         frame_id: "base_link"
-        child_frame_id: "front_axel_middle_link"
+        child_frame_id: "front_axle_middle_link"

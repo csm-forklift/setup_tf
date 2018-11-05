@@ -43,7 +43,7 @@ private:
     tf::TransformBroadcaster front_wheel_right_broadcaster;
     Position front_wheel_left_position;
     Position front_wheel_right_position;
-    double front_axel_width;
+    double front_axle_width;
 
 
 public:
@@ -61,15 +61,15 @@ public:
         imu_base_link_position.y = 0;
         imu_base_link_position.z = 0;
 
-        // Set wheel positions relative to 'front_axel_middle
-        if (!nh.getParam("/forklift/front_axel_width", front_axel_width)) {
-            ROS_INFO("Could not load param \'forklift/front_axel_width\'. Using default: 0.5m");
-            front_axel_width = 0.5;
+        // Set wheel positions relative to 'front_axle_middle
+        if (!nh.getParam("/forklift/front_axle_width", front_axle_width)) {
+            ROS_INFO("Could not load param \'forklift/front_axle_width\'. Using default: 0.5m");
+            front_axle_width = 0.5;
         }
         front_wheel_left_position.x, front_wheel_right_position.z = 0;
         front_wheel_left_position.z, front_wheel_right_position.z = 0;
-        front_wheel_left_position.y = front_axel_width/2;
-        front_wheel_right_position.y = -front_axel_width/2;
+        front_wheel_left_position.y = front_axle_width/2;
+        front_wheel_right_position.y = -front_axle_width/2;
     }
 
     void odom_filteredCallback(const nav_msgs::Odometry::ConstPtr &msg)
@@ -139,7 +139,7 @@ public:
             tf::Transform(tf::Quaternion(msg->x, msg->y, msg->z, msg->w),
                           tf::Vector3(front_wheel_left_position.x, front_wheel_left_position.y, front_wheel_left_position.z)),
             ros::Time::now(),
-            "front_axel_middle_link",
+            "front_axle_middle_link",
             "front_wheel_left_link"
         ));
     }
@@ -150,7 +150,7 @@ public:
             tf::Transform(tf::Quaternion(msg->x, msg->y, msg->z, msg->w),
                           tf::Vector3(front_wheel_right_position.x, front_wheel_right_position.y, front_wheel_right_position.z)),
             ros::Time::now(),
-            "front_axel_middle_link",
+            "front_axle_middle_link",
             "front_wheel_right_link"
         ));
     }

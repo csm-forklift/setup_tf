@@ -5,7 +5,7 @@
 # General Dimensions
 forklift:
     base_width: 0.340
-    front_axel_width: 0.340
+    front_axle_width: 0.340
     front_wheel_diameter: 0.254
     ground_clearance: 0.010
     encoder:
