@@ -108,7 +108,7 @@ private:
 
     // List transforms needing to be published
     std::vector<std::string> odom_transform;
-    std::vector<std::string> front_axel_middle_transform;
+    std::vector<std::string> front_axle_middle_transform;
     std::vector<std::string> camera1_transform;
     std::vector<std::string> marker1_transform;
     std::vector<std::string> marker2_transform;
