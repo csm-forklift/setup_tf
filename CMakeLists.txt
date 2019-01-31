@@ -148,6 +148,8 @@ add_executable(setup_tf_obstacle_test src/setup_tf_obstacle_test.cpp)
 add_executable(setup_tf_static_obstacle_test src/setup_tf_static_obstacle_test.cpp)
 add_executable(setup_tf_cylinder_test src/setup_tf_cylinder_test.cpp)
 add_executable(setup_tf_static_cylinder_test src/setup_tf_static_cylinder_test.cpp)
+add_executable(setup_tf_gui_test src/setup_tf_gui_test.cpp)
+add_executable(setup_tf_static_gui_test src/setup_tf_static_gui_test.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -174,6 +176,9 @@ target_link_libraries(setup_tf_obstacle_test ${catkin_LIBRARIES})
 target_link_libraries(setup_tf_static_obstacle_test ${catkin_LIBRARIES})
 target_link_libraries(setup_tf_cylinder_test ${catkin_LIBRARIES})
 target_link_libraries(setup_tf_static_cylinder_test ${catkin_LIBRARIES})
+target_link_libraries(setup_tf_gui_test ${catkin_LIBRARIES})
+target_link_libraries(setup_tf_static_gui_test ${catkin_LIBRARIES})
+
 
 #############
 ## Install ##
