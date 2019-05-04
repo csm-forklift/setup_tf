@@ -4,20 +4,11 @@
 
 # General Dimensions
 forklift:
-    body:
-        length: 2.5601
-        width: 1.3599
-        total: 3.5659
-    wheels:
-        front_length: 0.6921
-        front_width: 0.2159
-        back_length: 0.4445
-        back_width: 0.1778
-    clamp:
-        inner_width: 1.1059
-        thickness: 0.0432
-        short_length: 0.6960
-        long_length: 1.0058
+    base_width: 0.400
+    front_axle_width: 0.400
+    front_wheel_diameter: 0.254
+    encoder:
+        segments: 40
     
 # Frame transform parameters
 front_axle_middle:
