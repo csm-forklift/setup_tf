@@ -1,6 +1,6 @@
 # Transforms for the IMU from the robot's base_link frame
 
-imu:
+imu0:
     pose:
         x: -0.100
         y: 0.0
@@ -11,4 +11,4 @@ imu:
         qw: 0.7071068
     frames:
         frame_id: "base_link"
-        child_frame_id: "imu_link"
+        child_frame_id: "imu0_link"
