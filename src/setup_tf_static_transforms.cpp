@@ -27,7 +27,7 @@
             qw: 1.0
         frames:
             frame_id: "[parent_frame_name]"
-            child_frame_id: "[child_frame name]"
+            child_frame_id: "[child_frame_name]"
 
     i.e.
     camera3:
@@ -76,6 +76,7 @@
 #include <ros/ros.h>
 #include <tf/transform_broadcaster.h>
 #include <string>
+
 class StaticTransforms
 {
 private:
@@ -112,7 +113,8 @@ private:
     std::vector<std::string> wheel_left_transform;
     std::vector<std::string> wheel_right_transform;
     std::vector<std::string> laser_scanner1_transform;
-    std::vector<std::string> imu_transform;
+    std::vector<std::string> imu0_transform;
+    std::vector<std::string> imu1_transform;
     std::vector<std::string> camera1_transform;
     std::vector<std::string> marker1_transform;
 
@@ -167,10 +169,14 @@ public:
         //====================================================================//
         // Sensor Frames
         //====================================================================//
-        //===== IMU (base_link) =====//
-        imu_transform.push_back("imu");
-        imu_transform.push_back("imu.yaml");
-        frame_catalog.push_back(imu_transform);
+        //===== IMU0 (base_link) =====//
+        imu0_transform.push_back("imu0");
+        imu0_transform.push_back("imu.yaml");
+        frame_catalog.push_back(imu0_transform);
+        //===== IMU1 (base_link) =====//
+        imu1_transform.push_back("imu1");
+        imu1_transform.push_back("imu.yaml");
+        frame_catalog.push_back(imu1_transform);
         //===== Laser Scanners (base_link) =====//
         laser_scanner1_transform.push_back("laser_scanner1");
         laser_scanner1_transform.push_back("laser_scanners.yaml");
