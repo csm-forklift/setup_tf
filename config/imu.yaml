@@ -25,3 +25,30 @@ imu1:
     frames:
         frame_id: "base_link"
         child_frame_id: "imu1_link"
+        
+lidar0_imu:
+    pose:
+        x: 0.0
+        y: 0.0
+        z: 0.0
+        qx: 0.0
+        qy: 0.0
+        qz: 0.0
+        qw: 1.0
+    frames:
+        frame_id: "lidar0_link"
+        child_frame_id: "lidar0_imu"
+        
+lidar1_imu:
+    pose:
+        x: 0.0
+        y: 0.0
+        z: 0.0
+        qx: 0.0
+        qy: 0.0
+        qz: 0.0
+        qw: 1.0
+    frames:
+        frame_id: "lidar1_link"
+        child_frame_id: "lidar1_imu"
+    

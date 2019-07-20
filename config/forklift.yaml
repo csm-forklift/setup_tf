@@ -17,6 +17,7 @@ forklift:
         back_length: 0.4445
         back_width: 0.1778
         front_axle_to_back_axle: 1.7249
+        front_axle_width: 1.1440
     clamp:
         inner_width: 1.1059
         thickness: 0.0432

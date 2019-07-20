@@ -110,12 +110,13 @@ private:
     // List transforms needing to be published
     std::vector<std::string> odom_transform;
     std::vector<std::string> front_axle_middle_transform;
-    std::vector<std::string> wheel_left_transform;
-    std::vector<std::string> wheel_right_transform;
-    std::vector<std::string> laser_scanner1_transform;
     std::vector<std::string> imu0_transform;
     std::vector<std::string> imu1_transform;
-    std::vector<std::string> camera1_transform;
+    std::vector<std::string> sensor_transform;
+    std::vector<std::string> lidar0_transform;
+    std::vector<std::string> lidar1_transform;
+    std::vector<std::string> lidar0_imu_transform;
+    std::vector<std::string> lidar1_imu_transform;
     std::vector<std::string> marker1_transform;
 
     //========================================================================//
@@ -169,22 +170,29 @@ public:
         //====================================================================//
         // Sensor Frames
         //====================================================================//
-        //===== IMU0 (base_link) =====//
+        //===== IMUs (base_link) =====//
         imu0_transform.push_back("imu0");
         imu0_transform.push_back("imu.yaml");
         frame_catalog.push_back(imu0_transform);
-        //===== IMU1 (base_link) =====//
         imu1_transform.push_back("imu1");
         imu1_transform.push_back("imu.yaml");
         frame_catalog.push_back(imu1_transform);
-        //===== Laser Scanners (base_link) =====//
-        laser_scanner1_transform.push_back("laser_scanner1");
-        laser_scanner1_transform.push_back("laser_scanners.yaml");
-        frame_catalog.push_back(laser_scanner1_transform);
-        //===== Cameras (base_link) =====//
-        camera1_transform.push_back("camera1");
-        camera1_transform.push_back("cameras.yaml");
-        frame_catalog.push_back(camera1_transform);
+        lidar0_imu_transform.push_back("lidar0_imu");
+        lidar0_imu_transform.push_back("imu.yaml");
+        frame_catalog.push_back(lidar0_imu_transform);
+        lidar1_imu_transform.push_back("lidar1_imu");
+        lidar1_imu_transform.push_back("imu.yaml");
+        frame_catalog.push_back(lidar1_imu_transform);
+        //===== Lidars (base_link) =====//
+        sensor_transform.push_back("sensor");
+        sensor_transform.push_back("lidars.yaml");
+        frame_catalog.push_back(sensor_transform);
+        lidar0_transform.push_back("lidar0");
+        lidar0_transform.push_back("lidars.yaml");
+        frame_catalog.push_back(lidar0_transform);
+        lidar1_transform.push_back("lidar1");
+        lidar1_transform.push_back("lidars.yaml");
+        frame_catalog.push_back(lidar1_transform);
 
         //====================================================================//
         //****************** OPERATOR TRANSFORM DEFINITIONS (2) **************//
@@ -208,7 +216,7 @@ public:
         // Get parameters from loaded yaml file, use defaults if load fails
         std::map<std::string, double> pose_map;
         std::map<std::string, std::string> frame_map;
-        if (!nh_.getParam((frame_name + "/pose").c_str(), pose_map)) {
+        if (!nh_.getParam(("/" + frame_name + "/pose").c_str(), pose_map)) {
             transform.parameters = default_parameters;
             ROS_INFO("Could not load pose info for %s transform, using defaults:\nposition: [%0.0f, %0.0f, %0.0f]\norientation: [%0.0f, %0.0f, %0.0f, %0.0f]",
                      frame_name.c_str(), transform.parameters.x, transform.parameters.y, transform.parameters.z,
@@ -223,7 +231,7 @@ public:
             transform.parameters.qz = pose_map["qz"];
             transform.parameters.qw = pose_map["qw"];
         }
-        if (!nh_.getParam((frame_name + "/frames").c_str(), frame_map)) {
+        if (!nh_.getParam(("/" + frame_name + "/frames").c_str(), frame_map)) {
             transform.parameters.frame_id = default_parameters.frame_id;
             transform.parameters.child_frame_id = frame_name + "_link";
             ROS_INFO("Could not load frame info for %s transform, using defaults:\nframe_id: %s\nchild_frame:id: %s",

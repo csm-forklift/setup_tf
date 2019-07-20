@@ -1,14 +1,42 @@
 # Transforms for the lidars from the robot's base_link frame
 
-lidar1:
+# This is actually the lidar0 frame, but must be 'sensor_link' so that the 
+# mapping code can reference pointcloud data all from that frame.
+sensor:
     pose:
-        x: 0.040
-        y: 0.000
-        z: 0.450
+        x: -2.1172
+        y: 0
+        z: 0.2140
         qx: 0.0
-        qy: 0.0871557
+        qy: 0.0
+        qz: 1.0
+        qw: 0.0
+    frames:
+        frame_id: "base_link"
+        child_frame_id: "sensor_link"
+
+lidar0:
+    pose:
+        x: 0.0
+        y: 0.0
+        z: 0.0
+        qx: 0.0
+        qy: 0.0
         qz: 0.0
-        qw: 0.9961947
+        qw: 1.0
     frames:
         frame_id: "sensor_link"
-        child_frame_id: "os1"
+        child_frame_id: "lidar0_link"
+        
+lidar1:
+    pose:
+        x: 0.716
+        y: 0.11
+        z: 0.2119
+        qx: 0.0
+        qy: 0.0
+        qz: 0.0
+        qw: 1.0
+    frames:
+        frame_id: "base_link"
+        child_frame_id: "lidar1_link"

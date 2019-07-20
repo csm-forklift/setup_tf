@@ -34,28 +34,20 @@
     -->
     <param name="base_width" value="$(arg base_width)" />
 
+    <!-- Load all of the configuration yaml files -->
     <rosparam file="$(find setup_tf)/config/forklift.yaml" command="load" />
-
+    <rosparam file="$(find setup_tf)/config/world.yaml" command="load" />
+    <rosparam file="$(find setup_tf)/config/lidars.yaml" command="load" />
+    <rosparam file="$(find setup_tf)/config/imu.yaml" command="load" />
+    
     <!-- This node subscribes to all relevant odometry data and generates the
          dynamic transforms -->
     <group if="$(arg debug)">
         <node pkg="setup_tf" name="setup_tf_node" type="setup_tf_node" respawn="true" output="screen" />
-        <node pkg="setup_tf" name="setup_tf_static_transforms" type="setup_tf_static_transforms" respawn="true" output="screen">
-            <rosparam file="$(find setup_tf)/config/forklift.yaml" command="load" />
-            <rosparam file="$(find setup_tf)/config/world.yaml" command="load" />
-            <rosparam file="$(find setup_tf)/config/laser_scanners.yaml" command="load" />
-            <rosparam file="$(find setup_tf)/config/imu.yaml" command="load" />
-            <rosparam file="$(find setup_tf)/config/cameras.yaml" command="load" />
-        </node>
+        <node pkg="setup_tf" name="setup_tf_static_transforms" type="setup_tf_static_transforms" respawn="true" output="screen"/>
     </group>
     <group unless="$(arg debug)">
         <node pkg="setup_tf" name="setup_tf_node" type="setup_tf_node" respawn="true" />
-        <node pkg="setup_tf" name="setup_tf_static_transforms" type="setup_tf_static_transforms" respawn="true">
-            <rosparam file="$(find setup_tf)/config/forklift.yaml" command="load" />
-            <rosparam file="$(find setup_tf)/config/world.yaml" command="load" />
-            <rosparam file="$(find setup_tf)/config/laser_scanners.yaml" command="load" />
-            <rosparam file="$(find setup_tf)/config/imu.yaml" command="load" />
-            <rosparam file="$(find setup_tf)/config/cameras.yaml" command="load" />
-        </node>
+        <node pkg="setup_tf" name="setup_tf_static_transforms" type="setup_tf_static_transforms" respawn="true"/>
     </group>
 </launch>

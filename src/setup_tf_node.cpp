@@ -62,8 +62,8 @@ public:
         imu_base_link_position.z = 0;
 
         // Set wheel positions relative to 'front_axle_middle
-        if (!nh.getParam("/forklift/front_axle_width", front_axle_width)) {
-            ROS_INFO("Could not load param \'forklift/front_axle_width\'. Using default: 0.5m");
+        if (!nh.getParam("/forklift/wheels/front_axle_width", front_axle_width)) {
+            ROS_INFO("Could not load param \'forklift/wheels/front_axle_width\'. Using default: 0.5m");
             front_axle_width = 0.5;
         }
         front_wheel_left_position.x, front_wheel_right_position.z = 0;
