@@ -110,6 +110,7 @@ private:
     // List transforms needing to be published
     std::vector<std::string> odom_transform;
     std::vector<std::string> front_axle_middle_transform;
+    std::vector<std::string> clamp_short_arm_transform;
     std::vector<std::string> imu0_transform;
     std::vector<std::string> imu1_transform;
     std::vector<std::string> sensor_transform;
@@ -151,13 +152,13 @@ public:
            at the origin of the world frame and then start up again with odom
            set to that pose
         */
-        odom_transform.push_back("odom");
-        odom_transform.push_back("world.yaml");
-        frame_catalog.push_back(odom_transform);
+        //odom_transform.push_back("odom");
+        //odom_transform.push_back("world.yaml");
+        //frame_catalog.push_back(odom_transform);
         //===== World to Marker1 =====//
-        marker1_transform.push_back("marker1");
-        marker1_transform.push_back("world.yaml");
-        frame_catalog.push_back(marker1_transform);
+        //marker1_transform.push_back("marker1");
+        //marker1_transform.push_back("world.yaml");
+        //frame_catalog.push_back(marker1_transform);
 
         //====================================================================//
         // Forklift Frames
@@ -166,6 +167,9 @@ public:
         front_axle_middle_transform.push_back("front_axle_middle");
         front_axle_middle_transform.push_back("forklift.yaml");
         frame_catalog.push_back(front_axle_middle_transform);
+        clamp_short_arm_transform.push_back("clamp_short_arm");
+        clamp_short_arm_transform.push_back("forklift.yaml");
+        frame_catalog.push_back(clamp_short_arm_transform);
 
         //====================================================================//
         // Sensor Frames

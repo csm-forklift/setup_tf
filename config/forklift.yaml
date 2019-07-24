@@ -40,3 +40,16 @@ front_axle_middle:
     frames:
         frame_id: "base_link"
         child_frame_id: "front_axle_middle_link"
+        
+clamp_short_arm:
+    pose:
+        x: 1.370
+        y: -0.520
+        z: 0.0
+        qx: 0.0
+        qy: 0.0
+        qz: 0.0
+        qw: 1.0
+    frames:
+        frame_id: "base_link"
+        child_frame_id: "clamp_short_arm"

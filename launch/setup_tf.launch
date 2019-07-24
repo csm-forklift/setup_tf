@@ -4,7 +4,7 @@
     <arg name="debug" default="false" />
 
     <!-- robot physical parameters (SI units) -->
-    <arg name="base_width" default="0.400" />
+    <arg name="base_width" default="0.1.3499" />
 
     <!--
         The values for each static transform are loaded as parameters from yaml
@@ -43,11 +43,15 @@
     <!-- This node subscribes to all relevant odometry data and generates the
          dynamic transforms -->
     <group if="$(arg debug)">
+        <!--
         <node pkg="setup_tf" name="setup_tf_node" type="setup_tf_node" respawn="true" output="screen" />
+        -->
         <node pkg="setup_tf" name="setup_tf_static_transforms" type="setup_tf_static_transforms" respawn="true" output="screen"/>
     </group>
     <group unless="$(arg debug)">
+        <!--
         <node pkg="setup_tf" name="setup_tf_node" type="setup_tf_node" respawn="true" />
+        -->
         <node pkg="setup_tf" name="setup_tf_static_transforms" type="setup_tf_static_transforms" respawn="true"/>
     </group>
 </launch>
