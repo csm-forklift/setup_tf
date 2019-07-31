@@ -43,8 +43,8 @@ front_axle_middle:
         
 clamp_short_arm:
     pose:
-        x: 1.370
-        y: -0.520
+        x: 1.420
+        y: -0.420
         z: 0.0
         qx: 0.0
         qy: 0.0
