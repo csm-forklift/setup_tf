@@ -24,8 +24,8 @@ forklift:
         short_length: 0.6960
         long_length: 1.0058
     steering:
-        min_angle: -1.3089969 # 75 degrees (in radians)
-        max_angle: 1.3089969 # 75 degrees (in radians)
+        min_angle: -1.1344640 # 65 degrees (in radians)
+        max_angle: 1.1344640 # 65 degrees (in radians)
     
 # Frame transform parameters
 front_axle_middle:
@@ -43,7 +43,7 @@ front_axle_middle:
         
 clamp_short_arm:
     pose:
-        x: 1.420
+        x: 1.470
         y: -0.420
         z: 0.0
         qx: 0.0
