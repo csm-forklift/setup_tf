@@ -273,7 +273,7 @@ int main(int argc, char** argv)
     ros::init(argc, argv, "setup_tf_static_transforms");
     StaticTransforms transforms;
 
-    ros::Rate rate(60); // publish at 20Hz = 50ms period
+    ros::Rate rate(20); // publish at 20Hz = 50ms period
     while (ros::ok()) {
         transforms.sendAllTransforms();
         ros::spinOnce();
