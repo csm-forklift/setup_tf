@@ -4,7 +4,7 @@
     <arg name="debug" default="false" />
 
     <!-- robot physical parameters (SI units) -->
-    <arg name="base_width" default="0.1.3499" />
+    <arg name="base_width" default="1.3499" />
 
     <!--
         The values for each static transform are loaded as parameters from yaml
@@ -39,7 +39,7 @@
     <rosparam file="$(find setup_tf)/config/world.yaml" command="load" />
     <rosparam file="$(find setup_tf)/config/lidars.yaml" command="load" />
     <rosparam file="$(find setup_tf)/config/imu.yaml" command="load" />
-    
+
     <!-- This node subscribes to all relevant odometry data and generates the
          dynamic transforms -->
     <group if="$(arg debug)">
